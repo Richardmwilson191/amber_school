@@ -15,6 +15,7 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    @livewireStyles
 </head>
 
 <body class="bg-gray-100 h-screen antialiased leading-none font-sans">
@@ -27,6 +28,8 @@
                     </a>
                 </div>
                 <nav class="space-x-4 text-gray-300 text-sm sm:text-base">
+                    <a class="no-underline hover:underline"
+                        href="{{ route('subjectchoice.index') }}">{{ __('Subject Choice') }}</a>
                     <a class="no-underline hover:underline"
                         href="{{ route('student.index') }}">{{ __('Student') }}</a>
                     <a class="no-underline hover:underline"
@@ -42,7 +45,7 @@
                         <span>{{ Auth::user()->name }}</span>
 
                         <a href="{{ route('logout') }}" class="no-underline hover:underline" onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                                                document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                             {{ csrf_field() }}
                         </form>
@@ -53,6 +56,7 @@
 
         @yield('content')
     </div>
+    @livewireScripts
 </body>
 
 </html>

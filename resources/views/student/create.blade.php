@@ -53,7 +53,7 @@
                     @enderror
                 </div>
                 <div class="space-y-2 mb-2">
-                    <label for="email_addr" class="block font-medium tracking-tight">Phone Number</label>
+                    <label for="email_addr" class="block font-medium tracking-tight">Email Address</label>
                     <input
                         class="w-full border border-gray-400 text-gray-800 placeholder-gray-400 rounded focus:border-transparent focus:outline-none focus:shadow-outline px-3 py-2"
                         name="email_addr" id="" type="email" value="{{ old('email_addr') }}">

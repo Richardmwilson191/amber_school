@@ -8,78 +8,32 @@ use Illuminate\Http\Request;
 class TransactionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Update the transaction amount due.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
-    public function index()
+    public static function updateTransactionAmountDue($student_id, $cost, bool $add = true)
     {
-        //
-    }
+        // dd($student_id);
+        $trans = Transaction::where('student_id', $student_id)->first();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Transaction $transaction)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Transaction  $transaction
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Transaction $transaction)
-    {
-        //
+        if ($trans === null) {
+            $amount_due = $cost;
+        } elseif ($add) {
+            $amount_due = $trans->amount_due + $cost;
+        } else {
+            $amount_due = $trans->amount_due - $cost;
+        }
+        Transaction::updateOrCreate(
+            [
+                'student_id' => $student_id
+            ],
+            [
+                'amount_due' => $amount_due,
+                // 'amount_paid' => $t_amt_paid,
+                // 'balance_amt' => $amount_due - $t_amt_paid,
+                // 'year_of_exam' => $subjectChoice->year_of_exam
+            ]
+        );
     }
 }

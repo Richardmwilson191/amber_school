@@ -15,10 +15,10 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('student_id')->constrained();
-            $table->decimal('amount_due', 10, 2);
-            $table->decimal('amount_paid', 10, 2);
-            $table->decimal('balance_amt', 10, 2);
+            $table->foreignId('student_id')->constrained()->unique();
+            $table->decimal('amount_due', 10, 2)->default(0);
+            $table->decimal('amount_paid', 10, 2)->default(0);
+            $table->decimal('balance_amt', 10, 2)->default(0);
             $table->string('year_of_exam');
             $table->timestamps();
             $table->softDeletes();

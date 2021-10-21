@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Subject;
 use App\Models\SubjectChoice;
 use Illuminate\Http\Request;
 
 class SubjectChoiceController extends Controller
 {
+    private $stud_id;
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +16,7 @@ class SubjectChoiceController extends Controller
      */
     public function index()
     {
-        //
+        return view('subjectChoice.index');
     }
 
     /**
@@ -22,9 +24,16 @@ class SubjectChoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($student_id)
     {
-        //
+        $this->stud_id = $student_id;
+        $subjects = Subject::whereHas('subjectChoices', function ($query) {
+            $query->where('student_id', '=', $this->stud_id);
+        }, '=', 0)->get();
+
+        // $subject_choices = Subject::whereRelation('subjectChoices', 'student_id', '=', $student_id)->get();
+
+        return view('subjectChoice.create', compact('student_id', 'subjects'));
     }
 
     /**
@@ -35,7 +44,20 @@ class SubjectChoiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'student_id' => 'required',
+            'subject_id' => 'required',
+            'status' => 'required',
+            'year_of_exam' => 'required'
+        ]);
+
+        $subC = SubjectChoice::create($validated);
+
+        if ($request->status) {
+            TransactionController::updateTransactionAmountDue($request->student_id, $subC->subject->cost_amt);
+        }
+
+        return redirect()->route('subjectchoice.create', $request->student_id);
     }
 
     /**
@@ -67,9 +89,16 @@ class SubjectChoiceController extends Controller
      * @param  \App\Models\SubjectChoice  $subjectChoice
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SubjectChoice $subjectChoice)
+    public function update(Request $request, $subjectChoice)
     {
-        //
+        $subC = SubjectChoice::find($subjectChoice);
+        $subC->update([
+            'status' => $request->status
+        ]);
+
+        TransactionController::updateTransactionAmountDue($subC->student_id, $subC->subject->cost_amt, $request->status);
+
+        return back();
     }
 
     /**
@@ -81,5 +110,19 @@ class SubjectChoiceController extends Controller
     public function destroy(SubjectChoice $subjectChoice)
     {
         //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Subject  $subjectChoice
+     * @return \Illuminate\Http\Response
+     */
+    public function select(Subject $subject)
+    {
+        // SubjectChoice::create([
+
+        // ])
+        dd($subject);
     }
 }

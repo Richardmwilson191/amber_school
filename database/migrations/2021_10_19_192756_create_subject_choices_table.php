@@ -20,6 +20,7 @@ class CreateSubjectChoicesTable extends Migration
             $table->boolean('status')->default(0);
             $table->string('year_of_exam');
             $table->timestamps();
+            $table->unique(array('student_id', 'subject_id'), 'student_subject');
         });
     }
 

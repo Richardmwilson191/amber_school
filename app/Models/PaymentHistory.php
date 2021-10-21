@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class PaymentHistory extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['student_id', 'date_paid', 'desc'];
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
 }

@@ -21,6 +21,26 @@ class Student extends Model
         'gender'
     ];
 
+    public function subjectChoices()
+    {
+        return $this->hasMany(subjectChoice::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class);
+    }
+
+    public function paymentHistory()
+    {
+        return $this->hasMany(PaymentHistory::class);
+    }
+
     public function getGenderAttribute($value)
     {
         if ($value === 'm') {

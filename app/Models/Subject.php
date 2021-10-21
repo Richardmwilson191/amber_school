@@ -15,4 +15,14 @@ class Subject extends Model
         'subject_nm',
         'cost_amt'
     ];
+
+    public function subjectChoices()
+    {
+        return $this->hasMany(SubjectChoice::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

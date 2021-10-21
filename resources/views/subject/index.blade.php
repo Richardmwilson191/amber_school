@@ -1,4 +1,4 @@
-@extends('layouts.app')
+{{-- @extends('layouts.app')
 @section('content')
     <!-- component -->
     <section class="py-1 bg-indigo-50">
@@ -33,7 +33,7 @@
                                     Cost
                                 </th>
                                 <th
-                                    class="px-6 text-center bg-indigo-50 text-indigo-500 align-middle border border-solid border-indigo-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                    class="px-6 text-center bg-indigo-50 text-indigo-500 align-middle border border-solid border-indigo-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold">
                                     Options
                                 </th>
                             </tr>
@@ -77,5 +77,12 @@
                 </div>
             </div>
         </div>
+    </section>
+@endsection --}}
+
+@extends('layouts.app')
+@section('content')
+    <section>
+        <x-subject-table></x-subject-table>
     </section>
 @endsection

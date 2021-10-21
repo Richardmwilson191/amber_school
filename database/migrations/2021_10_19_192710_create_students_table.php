@@ -20,7 +20,7 @@ class CreateStudentsTable extends Migration
             $table->date('dob');
             $table->string('class');
             $table->string('phone_nbr');
-            $table->string('email_addr');
+            $table->string('email_addr')->unique();
             $table->char('gender');
             $table->timestamps();
             $table->softDeletes();

@@ -10,4 +10,17 @@ class Transaction extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    protected $fillable = [
+        'student_id',
+        'amount_due',
+        'amount_paid',
+        'balance_amt',
+        'year_of_exam'
+    ];
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class);
+    }
 }

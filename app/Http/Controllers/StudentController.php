@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Student;
+use App\Models\Transaction;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -14,7 +15,7 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::all();
+        $students = Student::paginate(5);
         return view('student.index', compact('students'));
     }
 
@@ -42,7 +43,7 @@ class StudentController extends Controller
             'dob' => 'required',
             'class' => 'required',
             'phone_nbr' => 'required',
-            'email_addr' => 'required',
+            'email_addr' => 'required|unique:students,email_addr',
             'gender' => 'required',
         ]);
 
@@ -62,7 +63,9 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        $student_id = $student->id;
+        $transactions = Transaction::where('student_id', $student_id)->get();
+        return view('student.show', compact('student_id', 'transactions'));
     }
 
     /**
@@ -91,7 +94,7 @@ class StudentController extends Controller
             'dob' => 'required',
             'class' => 'required',
             'phone_nbr' => 'required',
-            'email_addr' => 'required',
+            'email_addr' => 'required|unique:students,email_addr,' . $student . ',id',
             'gender' => 'required',
         ]);
 
@@ -113,5 +116,19 @@ class StudentController extends Controller
     {
         $student->delete();
         return redirect()->route('student.index');
+    }
+
+    /**
+     * Search for a specified resource from storage.
+     *
+     * @param  \App\Models\Student  $student
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $students = Student::where('frst_nm', $request->search)
+            ->orWhere('last_nm', $request->search)
+            ->paginate(5);
+        return view('student.index', compact('students'));
     }
 }

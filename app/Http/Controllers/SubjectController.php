@@ -14,8 +14,7 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        $subjects = Subject::all();
-        return view('subject.index', compact('subjects'));
+        return view('subject.index');
     }
 
     /**
@@ -37,7 +36,7 @@ class SubjectController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'subject_nm' => 'required',
+            'subject_nm' => 'required|unique:subjects,subject_nm',
             'cost_amt' => 'required',
         ]);
 
@@ -81,7 +80,7 @@ class SubjectController extends Controller
     public function update(Request $request, Subject $subject)
     {
         $validated = $request->validate([
-            'subject_nm' => 'required',
+            'subject_nm' => 'required|unique:subjects,subject_nm,' . $subject . ',id',
             'cost_amt' => 'required',
         ]);
 

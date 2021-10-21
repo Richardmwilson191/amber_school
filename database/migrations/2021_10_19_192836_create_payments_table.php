@@ -22,6 +22,7 @@ class CreatePaymentsTable extends Migration
             $table->date('date_paid');
             $table->timestamps();
             $table->softDeletes();
+            $table->unique(array('student_id', 'subject_id'), 'student_subject');
         });
     }
 
