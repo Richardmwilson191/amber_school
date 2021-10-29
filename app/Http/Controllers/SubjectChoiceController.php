@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class SubjectChoiceController extends Controller
 {
-    private $stud_id;
     /**
      * Display a listing of the resource.
      *
@@ -26,9 +25,8 @@ class SubjectChoiceController extends Controller
      */
     public function create($student_id)
     {
-        $this->stud_id = $student_id;
-        $subjects = Subject::whereHas('subjectChoices', function ($query) {
-            $query->where('student_id', '=', $this->stud_id);
+        $subjects = Subject::whereHas('subjectChoices', function ($query) use ($student_id) {
+            $query->where('student_id', '=', $student_id);
         }, '=', 0)->get();
 
         // $subject_choices = Subject::whereRelation('subjectChoices', 'student_id', '=', $student_id)->get();

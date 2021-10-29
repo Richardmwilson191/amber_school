@@ -1,7 +1,7 @@
 <div>
-    <div class="pt-12">
+    {{-- <div class="pt-12">
         <h1 class="bold text-3xl text-gray-800 w-4/6 m-auto">Subject</h1>
-    </div>
+    </div> --}}
     <div class="w-full mb-12 xl:mb-0 px-4 mx-auto mt-12">
         <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
             <div class="rounded-t mb-0 px-4 py-3 border-0">
@@ -49,9 +49,9 @@
                                 </td>
                                 <td>
                                     <div class="flex w-1/2 mx-auto">
-                                        <a href="{{ route('subject.show', $subject->id) }}"
+                                        {{-- <a href="{{ route('subject.show', $subject->id) }}"
                                             class="px-2 text-sm py-2 mx-auto font-medium text-green-600 transition duration-500 ease-in-out transform bg-green-100 rounded-lg hover:bg-green-300 focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2">
-                                            View</a>
+                                            View</a> --}}
                                         <a href="{{ route('subject.edit', $subject->id) }}"
                                             class="px-2 text-sm py-2 mx-auto font-medium text-blue-600 transition duration-500 ease-in-out transform bg-blue-100 rounded-lg hover:bg-blue-300 focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2">
                                             Edit</a>

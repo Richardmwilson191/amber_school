@@ -5,11 +5,13 @@
                 <div class="relative w-full px-4 max-w-full flex-grow flex-1">
                     <h3 class="font-semibold text-base text-indigo-700">Subjects Choices</h3>
                 </div>
-                {{-- <div class="relative w-full px-4 max-w-full flex-grow flex-1 text-right">
-                    <a href="{{ route('subject.create') }}"
-                        class="bg-indigo-500 text-white active:bg-indigo-600 text-xs font-bold uppercase px-3 py-2 rounded outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                        type="button">Add Subject</a>
-                </div> --}}
+                <div>
+                    <h3 class="font-semibold text-base text-indigo-700">
+                        @if ($studentId)
+                            {{ $subject_choices->first()?->student->frst_nm . ' ' . $subject_choices->first()?->student->last_nm }}
+                        @endif
+                    </h3>
+                </div>
             </div>
         </div>
         <div class="block w-full overflow-x-auto">
@@ -20,6 +22,12 @@
                             class="px-6 bg-indigo-50 text-indigo-500 align-middle border border-solid border-indigo-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                             Subject Name
                         </th>
+                        @if (!$studentId)
+                            <th
+                                class="px-6 bg-indigo-50 text-indigo-500 align-middle border border-solid border-indigo-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
+                                Student Name
+                            </th>
+                        @endif
                         <th
                             class="px-6 bg-indigo-50 text-indigo-500 align-middle border border-solid border-indigo-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
                             Cost
@@ -50,6 +58,12 @@
                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4 text-left">
                                 {{ $choice->subject->subject_nm }}
                             </td>
+                            @if (!$studentId)
+                                <td
+                                    class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4 text-left">
+                                    {{ $choice->student->frst_nm . ' ' . $choice->student->last_nm }}
+                                </td>
+                            @endif
                             <td
                                 class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4 ">
                                 {{ $choice->subject->cost_amt }}
@@ -98,9 +112,9 @@
                                             class="px-2 text-sm py-2 mx-auto font-medium text-green-600 transition duration-500 ease-in-out transform bg-green-100 rounded-lg hover:bg-green-300 focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2">
                                             Make Payment</a>
                                     @else
-                                        <a href="{{ route('payment.make', $choice) }}"
+                                        <span href="#"
                                             class="px-2 cursor-not-allowed text-sm py-2 mx-auto font-medium text-gray-600 transition duration-500 ease-in-out transform bg-gray-100 rounded-lg  focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2">
-                                            Make Payment</a>
+                                            Make Payment</span>
                                     @endif
                                 </div>
                                 {{-- <div class="flex w-1/2 mx-auto">

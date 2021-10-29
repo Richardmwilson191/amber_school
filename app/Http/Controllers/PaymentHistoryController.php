@@ -14,7 +14,8 @@ class PaymentHistoryController extends Controller
      */
     public function index()
     {
-        //
+        $pay_hist = PaymentHistory::paginate(20);
+        return view('paymentHistory.index', compact('pay_hist'));
     }
 
     /**

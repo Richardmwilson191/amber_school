@@ -1,9 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    {{-- Subject choice section --}}
-    <section>
-        <x-subject-choice-table :studentId="$student_id" />
-    </section>
+    <x-sub-nav></x-sub-nav>
 
     <section>
         <div class="w-full mb-12 xl:mb-0 px-4 mx-auto mt-12">
@@ -11,12 +8,7 @@
                 <div class="rounded-t mb-0 px-4 py-3 border-0">
                     <div class="flex flex-wrap items-center">
                         <div class="relative w-full px-4 max-w-full flex-grow flex-1">
-                            <h3 class="font-semibold text-base text-indigo-700">Account Status</h3>
-                        </div>
-                        <div>
-                            <h3 class="font-semibold text-base text-indigo-700">
-                                {{ $transactions->first()?->student->frst_nm . ' ' . $transactions->first()?->student->last_nm }}
-                            </h3>
+                            <h3 class="font-semibold text-base text-indigo-700">Payment History</h3>
                         </div>
                     </div>
                 </div>
@@ -26,33 +18,33 @@
                             <tr>
                                 <th
                                     class="px-6 bg-indigo-50 text-indigo-500 align-middle border border-solid border-indigo-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                    Amount Due
+                                    Student Name
                                 </th>
                                 <th
                                     class="px-6 bg-indigo-50 text-indigo-500 align-middle border border-solid border-indigo-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                    Amount Paid
+                                    description
                                 </th>
                                 <th
                                     class="px-6 bg-indigo-50 text-indigo-500 align-middle border border-solid border-indigo-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
-                                    Balance
+                                    date paid
+                                </th>
                             </tr>
                         </thead>
 
                         <tbody>
-                            @foreach ($transactions as $transaction)
+                            @foreach ($pay_hist as $history)
                                 <tr>
                                     <td
                                         class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4 text-left">
-                                        {{ $transaction->amount_due }}
+                                        {{ $history->student->frst_nm . ' ' . $history->student->last_nm }}
                                     </td>
                                     <td
                                         class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4 ">
-                                        {{ $transaction->amount_paid }}
+                                        {{ $history->desc }}
                                     </td>
-
                                     <td
                                         class="border-t-0 px-6 align-middle border-l-0 border-r-0 text-md whitespace-nowrap p-4 ">
-                                        {{ $transaction->balance_amt }}
+                                        {{ $history->created_at }}
                                     </td>
                                 </tr>
                             @endforeach
@@ -63,6 +55,5 @@
                 </div>
             </div>
         </div>
-
     </section>
 @endsection

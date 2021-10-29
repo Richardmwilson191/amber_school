@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class TransactionController extends Controller
 {
+    // Display all transaction records
+    public function index()
+    {
+        $transactions = Transaction::paginate(20);
+        return view('transaction.index', compact('transactions'));
+    }
+
     /**
      * Update the transaction amount due.
      *
@@ -21,8 +28,10 @@ class TransactionController extends Controller
             $amount_due = $cost;
         } elseif ($add) {
             $amount_due = $trans->amount_due + $cost;
+            $balance = $trans->balance_amt + $cost;
         } else {
             $amount_due = $trans->amount_due - $cost;
+            $balance = $trans->balance_amt - $cost;
         }
         Transaction::updateOrCreate(
             [
@@ -31,7 +40,7 @@ class TransactionController extends Controller
             [
                 'amount_due' => $amount_due,
                 // 'amount_paid' => $t_amt_paid,
-                // 'balance_amt' => $amount_due - $t_amt_paid,
+                'balance_amt' => $balance,
                 // 'year_of_exam' => $subjectChoice->year_of_exam
             ]
         );
