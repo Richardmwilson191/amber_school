@@ -18,7 +18,8 @@ class Student extends Model
         'class',
         'phone_nbr',
         'email_addr',
-        'gender'
+        'gender',
+        'has_birth_cert'
     ];
 
     public function subjectChoices()

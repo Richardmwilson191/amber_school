@@ -13,6 +13,11 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
+    {{-- Font Awesome --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+        integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     @livewireStyles
@@ -29,13 +34,15 @@
                 </div>
                 <nav class="space-x-4 text-gray-300 text-sm sm:text-base">
                     <a class="no-underline font-semibold border-b-2 border-transparent hover:border-white hover:text-white {{ request()->routeIs('subjectchoice*') ? 'border-white text-white' : '' }}"
-                        href="{{ route('subjectchoice.index') }}">{{ __('Subject Choice') }}</a>
+                        href="{{ route('subjectchoice.index') }}">{{ __('Subject Choices') }}</a>
                     <a class="no-underline font-semibold border-b-2 border-transparent hover:border-white hover:text-white {{ request()->routeIs('student*') ? 'border-white text-white' : '' }}"
-                        href="{{ route('student.index') }}">{{ __('Student') }}</a>
+                        href="{{ route('student.index') }}">{{ __('Students') }}</a>
                     <a class="no-underline font-semibold border-b-2 border-transparent hover:border-white hover:text-white {{ request()->routeIs('subject*') && !request()->routeIs('subjectchoice.index') ? 'border-white text-white' : '' }}"
-                        href="{{ route('subject.index') }}">{{ __('Subject') }}</a>
+                        href="{{ route('subject.index') }}">{{ __('Subjects') }}</a>
                     <a class="no-underline font-semibold border-b-2 border-transparent hover:border-white hover:text-white {{ request()->routeIs('payment*') || request()->routeIs('transaction*') ? 'border-white text-white' : '' }}"
                         href="{{ route('payment.index') }}">{{ __('Payment Records') }}</a>
+                    <a class="no-underline font-semibold border-b-2 border-transparent hover:border-white hover:text-white {{ request()->routeIs('dashboard') ? 'border-white text-white' : '' }}"
+                        href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a>
 
                     @guest
                         <a class="no-underline hover:underline" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -48,7 +55,7 @@
 
                         <a href="{{ route('logout') }}" class="no-underline hover:underline"
                             onclick="event.preventDefault();
-                                                                                                                                                                                                                                                                                                document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                                                                                                                                                                                                                                                                                                                    document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                             {{ csrf_field() }}
                         </form>

@@ -2,10 +2,11 @@
 @section('content')
     <!-- component -->
     <section class="py-1 bg-indigo-50">
+        <livewire:student-table-live />
         {{-- <div class="py-12">
             <h1 class="bold text-3xl text-gray-800 w-4/6 m-auto">Student</h1>
         </div> --}}
-        <div class="w-full mb-12 xl:mb-0 px-4 mx-auto mt-12">
+        {{-- <div class="w-full mb-12 xl:mb-0 px-4 mx-auto mt-12">
             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded ">
                 <div class="rounded-t mb-0 px-4 py-3 border-0">
                     <div class="flex flex-wrap items-center">
@@ -127,6 +128,6 @@
                     <div class="mt-4 pl-4">{{ $students->links() }}</div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </section>
 @endsection

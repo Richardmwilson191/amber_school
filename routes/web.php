@@ -50,6 +50,11 @@ Route::middleware('auth')->group(function () {
 
     // Payment History
     Route::get('payment/history', [PaymentHistoryController::class, 'index'])->name('payment.history.index');
+
+    // Dashboard
+    Route::get('dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
 });
 
 Route::get('helper', [HelperController::class, 'index'])->name('helper.index');
