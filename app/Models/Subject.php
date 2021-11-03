@@ -13,7 +13,8 @@ class Subject extends Model
 
     protected $fillable = [
         'subject_nm',
-        'cost_amt'
+        'cost_amt',
+        'user_id'
     ];
 
     public function subjectChoices()
@@ -24,5 +25,10 @@ class Subject extends Model
     public function payments()
     {
         return $this->hasMany(Payment::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

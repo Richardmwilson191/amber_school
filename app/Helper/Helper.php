@@ -3,6 +3,8 @@
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
+const TABLE_DIV = '<div class="block w-full overflow-x-auto">';
+const TABLE_DIV_END = '</div>';
 const TABLE_STRT = '<table class="items-center bg-transparent w-full border-collapse">';
 const TABLE_END = '</table>';
 const THEAD_STRT = '<thead>';
@@ -36,8 +38,12 @@ function dataTable(Collection $data)
     echo TABLE_END;
 }
 
-function dynamicDataTable(Collection $data, array $columns)
+function dynamicDataTable($data, array $columns, $pagination = null)
 {
+    if ($pagination) {
+        $data = $data->paginate($pagination);
+    }
+    echo TABLE_DIV;
     echo TABLE_STRT;
     echo THEAD_STRT;
     echo TR_STRT;
@@ -58,6 +64,9 @@ function dynamicDataTable(Collection $data, array $columns)
         echo TR_END;
     }
     echo TABLE_END;
+    echo TABLE_DIV_END;
+
+    return $data;
 }
 
 function jsonDataTable(Collection $data, $columns)

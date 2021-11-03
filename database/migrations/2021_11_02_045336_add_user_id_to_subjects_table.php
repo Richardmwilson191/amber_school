@@ -14,7 +14,7 @@ class AddUserIdToSubjectsTable extends Migration
     public function up()
     {
         Schema::table('subjects', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')->after('id')->constrained()->nullable();
         });
     }
 

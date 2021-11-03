@@ -6,10 +6,12 @@ use App\Models\Subject;
 use App\Models\User;
 use Livewire\Component;
 use Illuminate\Support\Facades\Password;
+use Livewire\WithPagination;
 
 class Dashboard extends Component
 {
-    public $name, $email, $subjects;
+    use WithPagination;
+    public $name, $email, $subjects, $assignedSubject, $teacherId;
 
     public $isOpenATModal = false;
     public $isOpenASModal = false;
@@ -17,7 +19,7 @@ class Dashboard extends Component
     public function openModal($propName)
     {
         $this->{$propName} = true;
-        $this->closeModal('isOpenASModal');
+        // $this->closeModal('isOpenAsModal');
     }
 
     public function closeModal($propName)
@@ -27,7 +29,7 @@ class Dashboard extends Component
 
     public function addTeacher()
     {
-        User::create([
+        $this->teacher = User::create([
             'name' => $this->name,
             'email' => $this->email,
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
@@ -39,10 +41,7 @@ class Dashboard extends Component
 
         $this->closeModal('isOpenATModal');
 
-        $this->assignSubject();
-
-        $this->openModal('isOpenASModal');
-
+        $this->loadSubjects($this->teacher->id);
 
         // session()->flash('message')
 
@@ -51,13 +50,29 @@ class Dashboard extends Component
         //     : back()->withErrors(['email' => __($status)]);
     }
 
+    public function mount()
+    {
+        // $this->teachers = User::where('is_admin', 0)->paginate(5);
+    }
+
+    public function loadSubjects($id)
+    {
+        $this->teacherId = $id;
+        $this->subjects = Subject::where('user_id', null)->get();
+        $this->openModal('isOpenASModal');
+    }
+
     public function assignSubject()
     {
-        $this->subjects = Subject::all();
+        Subject::find($this->assignedSubject)->update([
+            'user_id' => $this->teacherId
+        ]);
     }
 
     public function render()
     {
-        return view('livewire.dashboard');
+        return view('livewire.dashboard', [
+            'teachers' => User::where('is_admin', 0)->paginate(5)
+        ]);
     }
 }
